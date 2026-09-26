@@ -1,4 +1,4 @@
-# GovEase — Government News & Updates (Member 2)
+# GovEase — Government News & Updates 
 
 A government information portal that collects updates from official RSS feeds,
 cleans and categorises them, stores them in SQLite, serves them over a small
