@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Update Detail &mdash; GovEase</title>
+<meta name="description" content="Full details of a government update, including department, dates and the official source.">
+<meta name="theme-color" content="#0a3055">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="masthead">
+  <div class="gov-strip">
+    <div class="wrap">
+      <span class="strip-note">
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="8" cy="8" r="6.5"/><path d="M8 7.2v4M8 4.9v.9"/>
+        </svg>
+        An academic major project &mdash; not an official government website
+      </span>
+      <span class="strip-status">
+        <span class="status-text">Linked to the issuing department</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="wrap masthead-top">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">GE</span>
+      <span class="brand-text">
+        <span class="brand-name">GovEase</span>
+        <span class="brand-tagline">Simplifying Government Services</span>
+      </span>
+    </a>
+
+    <div class="masthead-facts" aria-hidden="true">
+      <span class="fact"><span class="fact-num">05</span><span class="fact-key">Sources</span></span>
+      <span class="fact"><span class="fact-num">03</span><span class="fact-key">Modules</span></span>
+    </div>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mainnav">
+      <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M2 4h12M2 8h12M2 12h12"/>
+      </svg>
+      Menu
+    </button>
+  </div>
+
+  <nav class="mainnav" id="mainnav" aria-label="Main">
+    <div class="wrap">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#assistant-mount">AI Assistant</a></li>
+        <li><a href="news.html" aria-current="page">Government Updates</a></li>
+        <li><a href="index.html#documents-mount">Documents &amp; Forms</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="wrap" style="max-width:940px">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="crumb-sep" aria-hidden="true">&rsaquo;</span>
+      <a href="news.html">Government Updates</a>
+      <span class="crumb-sep" aria-hidden="true">&rsaquo;</span>
+      <span>Update Detail</span>
+    </nav>
+
+    <div id="banners"></div>
+
+    <div id="article" aria-live="polite">
+      <div class="skeleton" style="height:290px"></div>
+    </div>
+
+    <p style="margin-top:20px">
+      <a class="btn btn-secondary" href="news.html">
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M13 8H4M7.5 4.5 4 8l3.5 3.5"/>
+        </svg>
+        Back to Government Updates
+      </a>
+    </p>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="disclaimer" style="border-top:0">
+      <strong>Disclaimer.</strong> GovEase is an academic project and is not an
+      official government website. Updates are collected from public government
+      sources and may be incomplete or delayed. Always confirm information
+      against the original notification on the issuing department&rsquo;s own
+      website before acting on it.
+      <span class="copyright">&copy; <span id="year"></span> GovEase &mdash; student major project.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

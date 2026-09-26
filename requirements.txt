@@ -1,0 +1,7 @@
+# GovEase - Member 2 (Government News & Updates)
+# Four dependencies, nothing else. Minimum versions, so installing this
+# never downgrades packages already present in your environment.
+flask>=3.0
+flask-cors>=5.0
+requests>=2.32
+feedparser>=6.0

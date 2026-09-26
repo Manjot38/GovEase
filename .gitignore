@@ -1,0 +1,60 @@
+# ==========================================================================
+# GovEase — Member 2 (Government News & Updates)
+#
+# Everything ignored here is either generated at runtime or local to one
+# machine. All source, frontend, seed data and documentation stays tracked.
+# ==========================================================================
+
+# --- Python bytecode / caches ---------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- SQLite database ------------------------------------------------------
+# Created on first run by backend/database/db.py init_db(). Committing it
+# would put a binary in the repo that every clone immediately rewrites.
+# Recreate with: python -m news.collector --seed
+backend/database/govease.db
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# --- Environment / secrets ------------------------------------------------
+# The project uses no secrets today (every os.environ value is a numeric
+# tuning knob or a port). Listed so a future key can never be committed
+# by accident. An .env.example, if one is ever added, stays tracked.
+.env
+.env.*
+!.env.example
+
+# --- Virtual environments -------------------------------------------------
+.venv/
+venv/
+ENV/
+env/
+.python-version
+
+# --- Editor / IDE ---------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- OS clutter -----------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Packaging / test artifacts -------------------------------------------
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Logs -----------------------------------------------------------------
+*.log

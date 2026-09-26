@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GovEase &mdash; Simplifying Government Services</title>
+<meta name="description" content="GovEase brings government announcements, schemes and notifications together in one place, always linking back to the official source.">
+<meta name="theme-color" content="#0a3055">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="masthead">
+  <!-- Tier 1: standing notice + portal status -->
+  <div class="gov-strip">
+    <div class="wrap">
+      <span class="strip-note">
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="8" cy="8" r="6.5"/><path d="M8 7.2v4M8 4.9v.9"/>
+        </svg>
+        An academic major project &mdash; not an official government website
+      </span>
+      <span class="strip-status" id="strip-status">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="status-text">Checking sources&hellip;</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Tier 2: masthead -->
+  <div class="wrap masthead-top">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">GE</span>
+      <span class="brand-text">
+        <span class="brand-name">GovEase</span>
+        <span class="brand-tagline">Simplifying Government Services</span>
+      </span>
+    </a>
+
+    <div class="masthead-facts" aria-hidden="true">
+      <span class="fact"><span class="fact-num">05</span><span class="fact-key">Sources</span></span>
+      <span class="fact"><span class="fact-num">03</span><span class="fact-key">Modules</span></span>
+    </div>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mainnav">
+      <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M2 4h12M2 8h12M2 12h12"/>
+      </svg>
+      Menu
+    </button>
+  </div>
+
+  <!-- Tier 3: navigation -->
+  <nav class="mainnav" id="mainnav" aria-label="Main">
+    <div class="wrap">
+      <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="index.html#assistant-mount">AI Assistant</a></li>
+        <li><a href="news.html">Government Updates</a></li>
+        <li><a href="index.html#documents-mount">Documents &amp; Forms</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <div id="banners"></div>
+
+    <!-- Hero: statement on the left, live portal figures on the right -->
+    <section class="hero">
+      <div class="hero-main">
+        <span class="eyebrow">Government Information Portal</span>
+        <h1>Government information, in one place</h1>
+        <p class="hero-lede">
+          GovEase collects announcements, schemes, policies and notifications
+          from official government sources, organises them by category, and
+          links every item back to the department that issued it.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="news.html">
+            Browse Government Updates
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7">
+              <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"/>
+            </svg>
+          </a>
+          <a class="btn btn-secondary" href="news.html?category=Schemes">View Schemes</a>
+        </div>
+
+        <p class="hero-pipeline">
+          <span class="step">Collect</span>
+          <span class="arrow" aria-hidden="true">&rarr;</span>
+          <span class="step">Clean</span>
+          <span class="arrow" aria-hidden="true">&rarr;</span>
+          <span class="step">Categorise</span>
+          <span class="arrow" aria-hidden="true">&rarr;</span>
+          <span class="step">Verify source</span>
+          <span class="arrow" aria-hidden="true">&rarr;</span>
+          <span class="step">Publish</span>
+        </p>
+      </div>
+
+      <aside class="hero-rail" aria-label="Portal at a glance">
+        <span class="eyebrow">Portal at a glance</span>
+        <div class="stat-grid" id="hero-stats">
+          <div class="stat"><span class="stat-num">&mdash;</span><span class="stat-key">Updates held</span></div>
+          <div class="stat"><span class="stat-num">&mdash;</span><span class="stat-key">Categories</span></div>
+          <div class="stat"><span class="stat-num">&mdash;</span><span class="stat-key">Official sources</span></div>
+          <div class="stat"><span class="stat-num">&mdash;</span><span class="stat-key">Min check interval</span></div>
+        </div>
+        <p class="rail-foot" id="hero-rail-note">
+          <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="8" cy="8" r="6.3"/><path d="M8 4.6V8l2.4 1.6"/>
+          </svg>
+          <span class="note-text">Reading portal status&hellip;</span>
+        </p>
+      </aside>
+    </section>
+
+    <div class="home-grid">
+
+      <!-- Latest updates strip (spec section 14) -->
+      <section class="panel" aria-labelledby="home-updates-heading">
+        <div class="panel-head">
+          <h2 id="home-updates-heading">
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M2.5 3.2h8.3v9.6H3.6a1.1 1.1 0 0 1-1.1-1.1z"/>
+              <path d="M10.8 5.6h2.7v6a1.2 1.2 0 0 1-2.7 0z"/>
+              <path d="M4.3 5.6h4.7M4.3 7.8h4.7M4.3 10h3"/>
+            </svg>
+            Latest Government Updates
+          </h2>
+          <span class="panel-note" id="home-last-checked"></span>
+        </div>
+        <ul class="numbered-list" id="home-updates">
+          <li><span class="num">01</span><div class="skeleton" style="height:46px;margin:0"></div></li>
+          <li><span class="num">02</span><div class="skeleton" style="height:46px;margin:0"></div></li>
+          <li><span class="num">03</span><div class="skeleton" style="height:46px;margin:0"></div></li>
+        </ul>
+        <div class="panel-foot">
+          <a class="btn btn-secondary" href="news.html">View All Updates</a>
+        </div>
+      </section>
+
+      <div>
+        <div class="section-rule"><h2>GovEase Modules</h2></div>
+
+        <!-- ==============================================================
+             MEMBER 1 MOUNT POINT - AI Assistant (RAG)
+             Owner: Member 1. Not implemented in this module.
+             To wire it up:
+               1. Define GovEase.assistant = { init: function () { ... } }
+                  in your own script file, included after script.js.
+               2. Render your interface inside #assistant-panel below.
+               3. Call your own backend at /api/assistant/... - register
+                  assistant_bp in backend/app.py. Keep your fetch calls out
+                  of GovEase.api so the two modules fail independently.
+             ============================================================== -->
+        <section class="module-card" id="assistant-mount">
+          <div class="module-head">
+            <span class="module-icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M13.5 9.2a1.4 1.4 0 0 1-1.4 1.4H5.4L2.5 13.2V3.9a1.4 1.4 0 0 1 1.4-1.4h8.2a1.4 1.4 0 0 1 1.4 1.4z"/>
+                <path d="M5.6 6.4h4.8M5.6 8.4h3"/>
+              </svg>
+            </span>
+            <h3>AI Assistant</h3>
+          </div>
+          <p>
+            Ask questions about government schemes and services in plain
+            language and get answers grounded in verified sources.
+          </p>
+          <div id="assistant-panel"></div>
+          <div class="module-foot">
+            <span class="status-chip status-planned">Planned</span>
+            <span class="module-owner">Member 1 &middot; integration point reserved</span>
+          </div>
+        </section>
+
+        <section class="module-card is-active">
+          <div class="module-head">
+            <span class="module-icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2.5 3.2h8.3v9.6H3.6a1.1 1.1 0 0 1-1.1-1.1z"/>
+                <path d="M10.8 5.6h2.7v6a1.2 1.2 0 0 1-2.7 0z"/>
+                <path d="M4.3 5.6h4.7M4.3 7.8h4.7M4.3 10h3"/>
+              </svg>
+            </span>
+            <h3>Government Updates</h3>
+          </div>
+          <p>
+            Schemes, announcements, policies and notifications collected from
+            official government feeds, categorised and linked to the source.
+          </p>
+          <div class="module-foot">
+            <span class="status-chip status-live">Available</span>
+            <a class="btn btn-secondary btn-sm" href="news.html">Open module</a>
+          </div>
+        </section>
+
+        <!-- ==============================================================
+             MEMBER 3 MOUNT POINT - Smart Document / Form Tool
+             Owner: Member 3. Not implemented in this module.
+             To wire it up:
+               1. Define GovEase.docs = { init: function () { ... } }
+                  in your own script file, included after script.js.
+               2. Render your interface inside #documents-panel below.
+               3. Call your own backend at /api/documents/... - register
+                  documents_bp in backend/app.py.
+             ============================================================== -->
+        <section class="module-card" id="documents-mount">
+          <div class="module-head">
+            <span class="module-icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9.2 1.9H4.4a1.2 1.2 0 0 0-1.2 1.2v9.8a1.2 1.2 0 0 0 1.2 1.2h7.2a1.2 1.2 0 0 0 1.2-1.2V5.3z"/>
+                <path d="M9.2 1.9v3.4h3.6"/><path d="M5.8 9h4.4M5.8 11h3"/>
+              </svg>
+            </span>
+            <h3>Documents &amp; Forms</h3>
+          </div>
+          <p>
+            Resize, compress and convert photographs and documents so they meet
+            the requirements of online application portals.
+          </p>
+          <div id="documents-panel"></div>
+          <div class="module-foot">
+            <span class="status-chip status-planned">Planned</span>
+            <span class="module-owner">Member 3 &middot; integration point reserved</span>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Category routes into the existing filtered Government Updates views -->
+    <section aria-labelledby="cat-heading">
+      <div class="section-rule">
+        <h2 id="cat-heading">Browse by Category</h2>
+        <span class="rule-note" id="cat-note"></span>
+      </div>
+      <div class="cat-grid" id="cat-tiles"></div>
+    </section>
+
+    <section id="about">
+      <div class="section-rule">
+        <h2>About GovEase</h2>
+        <span class="rule-note">Academic project</span>
+      </div>
+      <div class="panel prose">
+        <p>
+          GovEase is a student major project that brings three services
+          together: an assistant for understanding government information, a
+          feed of official government updates, and a tool for preparing
+          documents for online applications.
+        </p>
+        <p>
+          The Government Updates module collects items from a small set of
+          official government RSS feeds, cleans and categorises them, stores
+          them, and links every item back to the department that published it.
+          GovEase does not issue government notifications and is not a
+          substitute for the official source.
+        </p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>GovEase</h3>
+        <p>
+          One platform for understanding government information, staying
+          updated with announcements, and preparing files for online
+          applications.
+        </p>
+      </div>
+      <div>
+        <h3>Sections</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="news.html">Government Updates</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Categories</h3>
+        <ul>
+          <li><a href="news.html?category=Announcements">Announcements</a></li>
+          <li><a href="news.html?category=Policies">Policies</a></li>
+          <li><a href="news.html?category=Notifications">Notifications</a></li>
+          <li><a href="news.html?category=Citizen%20Services">Citizen Services</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Data Sources</h3>
+        <ul class="footer-sources">
+          <li>Reserve Bank of India</li>
+          <li>Securities and Exchange Board of India</li>
+          <li>Telecom Regulatory Authority of India</li>
+          <li>NITI Aayog</li>
+          <li>MyGov</li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <strong>Disclaimer.</strong> GovEase is an academic project and is not an
+      official government website. Updates are collected from public government
+      sources and may be incomplete or delayed. Always confirm information
+      against the original notification on the issuing department&rsquo;s own
+      website before acting on it.
+      <span class="copyright">&copy; <span id="year"></span> GovEase &mdash; student major project.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Government Updates &mdash; GovEase</title>
+<meta name="description" content="Important announcements, schemes, policies and notifications from verified government sources.">
+<meta name="theme-color" content="#0a3055">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="masthead">
+  <div class="gov-strip">
+    <div class="wrap">
+      <span class="strip-note">
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="8" cy="8" r="6.5"/><path d="M8 7.2v4M8 4.9v.9"/>
+        </svg>
+        An academic major project &mdash; not an official government website
+      </span>
+      <span class="strip-status" id="strip-status">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="status-text">Checking sources&hellip;</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="wrap masthead-top">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">GE</span>
+      <span class="brand-text">
+        <span class="brand-name">GovEase</span>
+        <span class="brand-tagline">Simplifying Government Services</span>
+      </span>
+    </a>
+
+    <div class="masthead-facts" aria-hidden="true">
+      <span class="fact"><span class="fact-num">05</span><span class="fact-key">Sources</span></span>
+      <span class="fact"><span class="fact-num">03</span><span class="fact-key">Modules</span></span>
+    </div>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mainnav">
+      <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M2 4h12M2 8h12M2 12h12"/>
+      </svg>
+      Menu
+    </button>
+  </div>
+
+  <nav class="mainnav" id="mainnav" aria-label="Main">
+    <div class="wrap">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#assistant-mount">AI Assistant</a></li>
+        <li><a href="news.html" aria-current="page">Government Updates</a></li>
+        <li><a href="index.html#documents-mount">Documents &amp; Forms</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="crumb-sep" aria-hidden="true">&rsaquo;</span>
+      <span>Government Updates</span>
+    </nav>
+
+    <div id="banners"></div>
+
+    <!-- Header area (spec section 4) -->
+    <section class="page-head">
+      <span class="eyebrow">Verified Government Announcements</span>
+      <h1 class="page-title">Government Updates</h1>
+      <p class="page-sub">
+        Important announcements, schemes, policies and notifications from
+        verified government sources. Every update links back to the department
+        that issued it.
+      </p>
+
+      <div class="controls">
+        <form class="searchbar" id="search-form" role="search">
+          <label class="visually-hidden" for="search-input">Search government updates</label>
+          <input type="search" id="search-input" name="search"
+                 placeholder="Search government updates&hellip;"
+                 autocomplete="off">
+          <button class="btn" type="submit">
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7">
+              <circle cx="7" cy="7" r="4.3"/><path d="M10.2 10.2 13.5 13.5"/>
+            </svg>
+            Search
+          </button>
+        </form>
+
+        <div class="filter-block">
+          <div class="filter-row" id="category-chips" role="group" aria-label="Filter by category">
+            <span class="filter-label">Category</span>
+          </div>
+
+          <div class="filter-row" id="state-chips" role="group" aria-label="Filter by level">
+            <span class="filter-label">Level</span>
+            <button type="button" class="chip" data-state="All" aria-pressed="true">All</button>
+            <button type="button" class="chip" data-state="Central" aria-pressed="false">Central</button>
+            <button type="button" class="chip" data-state="State" aria-pressed="false">State</button>
+          </div>
+        </div>
+
+        <p class="meta-line">
+          <span id="last-checked">
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="8" cy="8" r="6.3"/><path d="M8 4.6V8l2.4 1.6"/>
+            </svg>
+            Checking&hellip;
+          </span>
+          <span id="result-count"></span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Three-tier newspaper hierarchy is rendered here (spec section 5) -->
+    <div id="updates" aria-busy="true" aria-live="polite">
+      <div class="skeleton" style="height:200px"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>GovEase</h3>
+        <p>
+          One platform for understanding government information, staying
+          updated with announcements, and preparing files for online
+          applications.
+        </p>
+      </div>
+      <div>
+        <h3>Sections</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="news.html">Government Updates</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Categories</h3>
+        <ul>
+          <li><a href="news.html?category=Announcements">Announcements</a></li>
+          <li><a href="news.html?category=Policies">Policies</a></li>
+          <li><a href="news.html?category=Notifications">Notifications</a></li>
+          <li><a href="news.html?category=Citizen%20Services">Citizen Services</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Data Sources</h3>
+        <ul class="footer-sources">
+          <li>Reserve Bank of India</li>
+          <li>Securities and Exchange Board of India</li>
+          <li>Telecom Regulatory Authority of India</li>
+          <li>NITI Aayog</li>
+          <li>MyGov</li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <strong>Disclaimer.</strong> GovEase is an academic project and is not an
+      official government website. Updates are collected from public government
+      sources and may be incomplete or delayed. Always confirm information
+      against the original notification on the issuing department&rsquo;s own
+      website before acting on it.
+      <span class="copyright">&copy; <span id="year"></span> GovEase &mdash; student major project.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
