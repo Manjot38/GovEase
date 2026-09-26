@@ -241,36 +241,6 @@ origin blocks the fallback `fetch()` on CORS.
 
 ---
 
-## How to add your module (Members 1 and 3)
-
-Three seams are reserved for you, and none of them require editing news code.
-
-**1. Backend — one blueprint per module.**
-Create `backend/routes/assistant.py` or `backend/routes/documents.py` modelled
-on `backend/routes/news.py`, then register it in `backend/app.py`:
-
-```python
-from backend.routes.assistant import assistant_bp
-app.register_blueprint(assistant_bp, url_prefix="/api")
-```
-
-Keep your routes under `/api/assistant/...` or `/api/documents/...`.
-
-**2. Frontend — reserved namespaces.**
-`window.GovEase` already reserves `GovEase.assistant` and `GovEase.docs`.
-Put your own `fetch()` calls in your own namespace rather than extending
-`GovEase.api`, so the news module and yours fail independently.
-
-**3. Frontend — mount points.**
-`index.html` contains `#assistant-mount` and `#documents-mount`, each an inert
-placeholder with a comment naming its owner. Render into them from your own
-script, included after `script.js`.
-
-CORS is open in development, so your own dev server on another port can call
-this API directly. The full contract is in [`api/news_api.md`](api/news_api.md).
-
----
-
 ## Design notes
 
 - **No dependencies beyond four Python packages.** No CSS framework, no icon
