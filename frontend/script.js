@@ -7,7 +7,7 @@
      GovEase.config     shared settings
      GovEase.api        the ONLY place fetch() is called   (Member 2)
      GovEase.news       Government Updates rendering       (Member 2)
-     GovEase.assistant  RESERVED for Member 1 (RAG assistant)
+     GovEase.assistant  reserved for future assistant integrations
      GovEase.docs       RESERVED for Member 3 (document/form tool)
 
    Rules this file follows, from spec section 25:
@@ -387,13 +387,10 @@ window.GovEase = window.GovEase || {};
     if (year) year.textContent = new Date().getFullYear();
   });
 
-  /* --- Member 1 / Member 3 reserved slots --------------------------------
-     Leave these namespaces free. Attach your own code as:
-         GovEase.assistant = { init: function () { ... } };
-         GovEase.docs      = { init: function () { ... } };
-     and mount into #assistant-mount / #documents-mount on index.html.
-     Do not add your fetch() calls to GovEase.api - keep your own client so
-     the news module and yours can fail independently.
+  /* --- Member 3 reserved slot --------------------------------------------
+     Leave GovEase.docs free for the document/form module. The independent
+     chatbot client lives in chatbot.js, so it can fail without affecting
+     this news module.
      ---------------------------------------------------------------------- */
 
 })(window.GovEase);

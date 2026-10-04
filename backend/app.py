@@ -7,29 +7,24 @@ Run:
 Serves the API under /api and the frontend/ directory as static files, so a
 single process runs the whole prototype.
 
-FOR MEMBER 1 AND MEMBER 3
--------------------------
-Add your module without touching any news code:
-
-    from backend.routes.assistant import assistant_bp     # Member 1
-    app.register_blueprint(assistant_bp, url_prefix="/api")
-
-    from backend.routes.documents import documents_bp     # Member 3
-    app.register_blueprint(documents_bp, url_prefix="/api")
-
-Keep your endpoints under your own path (/api/assistant/..., /api/documents/...)
-so the three modules never collide. CORS is already open for local development,
-so your own dev server on another port can call this API directly.
+The chatbot and news modules are registered under /api. CORS is enabled for
+local development, so the frontend can also call this API from another port.
 """
 
 import os
+from pathlib import Path
 
+from dotenv import load_dotenv
 from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
 
 from backend.database.db import init_db
+from backend.routes.chat import chat_bp
 from backend.routes.news import news_bp
 from news.collector import start_background_refresh
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(PROJECT_ROOT / ".env")
 
 FRONTEND_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "frontend"
@@ -43,7 +38,7 @@ def create_app():
     init_db()
 
     app.register_blueprint(news_bp, url_prefix="/api")
-    # Member 1: register assistant_bp here.
+    app.register_blueprint(chat_bp, url_prefix="/api")
     # Member 3: register documents_bp here.
 
     @app.route("/")

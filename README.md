@@ -7,9 +7,9 @@ back to the issuing department.
 
     Official source → Collect → Clean → Categorise → Deduplicate → Store → API → Frontend
 
-This repository contains **Member 2's** module. Member 1 (AI Assistant) and
-Member 3 (Document & Form tool) have reserved integration points and are not
-implemented here.
+This repository contains **Member 2's** Government Updates module and a
+functional Groq-powered chatbot for the Member 1 AI Assistant integration.
+Member 3's Document & Form tool remains a reserved integration point.
 
 ---
 
@@ -37,6 +37,17 @@ The first command loads the bundled cached snapshot so the app has content even
 with no network, the second collects live updates from the official feeds, and
 the third serves both the API and the frontend from one process.
 
+The Groq API key is read by the backend from the project-root `.env` file.
+Copy the supplied `api/grok_api.env` to `.env` before starting the app. The
+backend accepts its existing `GROK_API_KEY` variable name and the standard
+`GROQ_API_KEY` name (recommended for new setups). Both files are excluded from
+Git.
+
+The floating GovEase Assistant sends questions to `POST /api/chat`; the Flask
+backend calls Groq using the `openai/gpt-oss-20b` model. The assistant does not
+query the live news database, so verify important government details with the
+relevant official source.
+
 ---
 
 ## Project structure
@@ -48,10 +59,12 @@ F:\Major Project\
 │   ├── news.html           Government Updates: featured + cards + compact list
 │   ├── news-detail.html    Single update (?id=...)
 │   ├── styles.css          All styling. No framework, no icon pack, no web fonts.
-│   └── script.js           GovEase namespace: api client + renderers
+│   ├── script.js           GovEase namespace: news API client + renderers
+│   └── chatbot.js          Floating Groq chatbot UI
 ├── backend/
 │   ├── app.py              Flask app, CORS, static serving, background bootstrap
-│   ├── routes/news.py      /api/news, /api/news/<id>, /api/meta, /api/refresh, /api/health
+│   ├── routes/news.py      Government Updates API
+│   ├── routes/chat.py      POST /api/chat
 │   ├── models/news.py      Categories, hashing, serialization, government-host check
 │   └── database/db.py      SQLite schema and connections (govease.db is generated)
 ├── news/
@@ -59,7 +72,7 @@ F:\Major Project\
 │   ├── collector.py        Fetch → clean → categorise → dedup → store; freshness gate
 │   └── data/seed_news.json Cached snapshot of real records (offline fallback)
 ├── api/news_api.md         API contract for Members 1 and 3
-├── requirements.txt        flask, flask-cors, requests, feedparser
+├── requirements.txt        Flask, flask-cors, requests, feedparser, python-dotenv
 └── GovEase_Member_2_News_Module.md   The specification
 ```
 
@@ -243,7 +256,7 @@ origin blocks the fallback `fetch()` on CORS.
 
 ## Design notes
 
-- **No dependencies beyond four Python packages.** No CSS framework, no icon
+- **No CSS or JavaScript dependencies.** No CSS framework, no icon
   pack, no charting or animation library, no web fonts.
 - **No polling.** The frontend fetches on page load and on user action only.
 - **Feed content is never trusted as HTML** — everything is escaped before it

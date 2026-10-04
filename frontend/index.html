@@ -148,17 +148,6 @@
       <div>
         <div class="section-rule"><h2>GovEase Modules</h2></div>
 
-        <!-- ==============================================================
-             MEMBER 1 MOUNT POINT - AI Assistant (RAG)
-             Owner: Member 1. Not implemented in this module.
-             To wire it up:
-               1. Define GovEase.assistant = { init: function () { ... } }
-                  in your own script file, included after script.js.
-               2. Render your interface inside #assistant-panel below.
-               3. Call your own backend at /api/assistant/... - register
-                  assistant_bp in backend/app.py. Keep your fetch calls out
-                  of GovEase.api so the two modules fail independently.
-             ============================================================== -->
         <section class="module-card" id="assistant-mount">
           <div class="module-head">
             <span class="module-icon" aria-hidden="true">
@@ -170,13 +159,12 @@
             <h3>AI Assistant</h3>
           </div>
           <p>
-            Ask questions about government schemes and services in plain
-            language and get answers grounded in verified sources.
+            Ask questions about Indian government services and schemes in
+            plain language. Confirm important details with official sources.
           </p>
-          <div id="assistant-panel"></div>
           <div class="module-foot">
-            <span class="status-chip status-planned">Planned</span>
-            <span class="module-owner">Member 1 &middot; integration point reserved</span>
+            <span class="status-chip status-live">Available</span>
+            <span class="module-owner">Open the floating GovEase Assistant</span>
           </div>
         </section>
 
@@ -319,5 +307,6 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="chatbot.js"></script>
 </body>
 </html>

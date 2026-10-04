@@ -28,6 +28,7 @@ backend/database/govease.db
 .env
 .env.*
 !.env.example
+api/grok_api.env
 
 # --- Virtual environments -------------------------------------------------
 .venv/

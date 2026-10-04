@@ -219,25 +219,23 @@ Rate-limited to once per minute.
 
 ---
 
-## Adding your own module (Members 1 and 3)
+## Adding the documents module (Member 3)
 
 The API is blueprint-per-module. Nothing in the news code needs to change.
 
-1. Create `backend/routes/assistant.py` (Member 1) or
-   `backend/routes/documents.py` (Member 3), following the shape of
+1. Create `backend/routes/documents.py`, following the shape of
    `backend/routes/news.py`.
 2. Register it in `backend/app.py`:
 
 ```python
-from backend.routes.assistant import assistant_bp
-app.register_blueprint(assistant_bp, url_prefix="/api")
+from backend.routes.documents import documents_bp
+app.register_blueprint(documents_bp, url_prefix="/api")
 ```
 
-3. Keep your endpoints under your own path — `/api/assistant/...`,
-   `/api/documents/...` — so the three modules never collide.
+3. Keep document endpoints under `/api/documents/...` so modules never
+   collide. The chatbot is already available at `POST /api/chat`.
 
-On the frontend, `window.GovEase` reserves `GovEase.assistant` and
-`GovEase.docs` for you, and `index.html` has two mount points,
-`#assistant-mount` and `#documents-mount`. Keep your own `fetch()` calls in your
-own namespace rather than adding to `GovEase.api`, so the news module and yours
-fail independently.
+On the frontend, `window.GovEase` reserves `GovEase.docs` for the document
+module, and `index.html` has the `#documents-mount` integration point. Keep
+its `fetch()` calls in its own namespace rather than adding to `GovEase.api`,
+so it can fail independently of the news module and chatbot.

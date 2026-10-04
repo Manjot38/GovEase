@@ -922,3 +922,115 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   body { background: #fff; font-size: 11pt; }
   .article, .page-head { border: 0; padding: 0; box-shadow: none; }
 }
+
+/* Floating GovEase Assistant */
+.govease-chat-window[hidden] { display: none; }
+
+.govease-chat-launch {
+  position: fixed; right: 22px; bottom: 22px; z-index: 110;
+  display: inline-flex; align-items: center; gap: 9px;
+  min-height: 52px; padding: 0 18px;
+  border: 0; border-radius: 999px;
+  background: var(--c-navy); color: #fff;
+  box-shadow: 0 4px 16px rgba(4, 23, 41, .28);
+  font: inherit; font-weight: 650; cursor: pointer;
+}
+.govease-chat-launch:hover { background: var(--c-navy-mid); }
+.govease-chat-launch:focus-visible,
+.govease-chat-close:focus-visible,
+.govease-chat-form input:focus-visible,
+.govease-chat-form button:focus-visible {
+  outline: 3px solid #f1b94c; outline-offset: 2px;
+}
+.govease-chat-launch svg { width: 23px; height: 23px; }
+
+.govease-chat-window {
+  position: fixed; right: 22px; bottom: 86px; z-index: 110;
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto;
+  width: min(390px, calc(100vw - 32px));
+  height: min(560px, calc(100vh - 112px));
+  overflow: hidden;
+  border: 1px solid var(--c-border); border-radius: 10px;
+  background: var(--c-bg); box-shadow: 0 10px 36px rgba(4, 23, 41, .24);
+  opacity: 0; transform: translateY(10px) scale(.98);
+  transform-origin: bottom right; pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+.govease-chat-window.is-open {
+  opacity: 1; transform: translateY(0) scale(1); pointer-events: auto;
+}
+
+.govease-chat-header {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 16px; background: var(--c-navy); color: #fff;
+}
+.govease-chat-header strong { display: block; font-size: 1rem; }
+.govease-chat-header span { display: block; margin-top: 2px; font-size: .78rem; color: rgba(255,255,255,.78); }
+.govease-chat-close {
+  width: 38px; height: 38px; flex: 0 0 38px;
+  border: 1px solid rgba(255,255,255,.36); border-radius: 50%;
+  background: transparent; color: #fff; font-size: 1.5rem; line-height: 1;
+  cursor: pointer;
+}
+.govease-chat-close:hover { background: rgba(255,255,255,.12); }
+
+.govease-chat-messages {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 11px;
+  overflow-y: auto; padding: 16px; background: var(--c-tint);
+}
+.govease-chat-message {
+  max-width: 88%; margin: 0; padding: 10px 12px;
+  border-radius: 12px; font-size: .91rem; line-height: 1.5;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.govease-chat-assistant {
+  align-self: flex-start; border: 1px solid var(--c-border);
+  border-bottom-left-radius: 4px; background: #fff; color: var(--c-body);
+}
+.govease-chat-user {
+  align-self: flex-end; border-bottom-right-radius: 4px;
+  background: var(--c-navy); color: #fff;
+}
+.govease-chat-typing { display: inline-flex; align-items: center; gap: 4px; min-width: 54px; }
+.govease-chat-typing span {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--c-muted);
+  animation: govease-chat-pulse .9s infinite ease-in-out alternate;
+}
+.govease-chat-typing span:nth-child(2) { animation-delay: .2s; }
+.govease-chat-typing span:nth-child(3) { animation-delay: .4s; }
+@keyframes govease-chat-pulse { to { opacity: .3; transform: translateY(-3px); } }
+
+.govease-chat-form {
+  display: flex; gap: 8px; padding: 12px;
+  border-top: 1px solid var(--c-border); background: #fff;
+}
+.govease-chat-form input {
+  min-width: 0; min-height: 44px; flex: 1;
+  border: 1px solid var(--c-border-str); border-radius: 5px;
+  padding: 9px 11px; color: var(--c-text); font: inherit;
+}
+.govease-chat-form input:disabled { background: var(--c-tint); }
+.govease-chat-form button {
+  min-width: 66px; min-height: 44px; border: 0; border-radius: 5px;
+  padding: 0 14px; background: var(--c-navy); color: #fff;
+  font: inherit; font-weight: 650; cursor: pointer;
+}
+.govease-chat-form button:hover:not(:disabled) { background: var(--c-navy-mid); }
+.govease-chat-form button:disabled { opacity: .6; cursor: wait; }
+.govease-chat-note {
+  margin: 0; padding: 0 13px 10px; background: #fff;
+  color: var(--c-muted); font-size: .72rem;
+}
+
+@media (max-width: 480px) {
+  .govease-chat-launch { right: 14px; bottom: 14px; }
+  .govease-chat-window {
+    right: 12px; bottom: 76px;
+    width: calc(100vw - 24px); height: min(560px, calc(100vh - 92px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .govease-chat-window { transition: none; }
+  .govease-chat-typing span { animation: none; }
+}
