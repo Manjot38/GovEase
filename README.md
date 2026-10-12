@@ -9,7 +9,9 @@ back to the issuing department.
 
 This repository contains **Member 2's** Government Updates module and a
 functional Groq-powered chatbot for the Member 1 AI Assistant integration.
-Member 3's Document & Form tool remains a reserved integration point.
+Member 3's Smart Document & Form tool (`documents.html`, `/api/documents`)
+resizes, compresses, converts and merges files for online applications — see
+[Documents & Forms](#documents--forms-member-3).
 
 ---
 
@@ -59,12 +61,18 @@ F:\Major Project\
 │   ├── news.html           Government Updates: featured + cards + compact list
 │   ├── news-detail.html    Single update (?id=...)
 │   ├── styles.css          All styling. No framework, no icon pack, no web fonts.
+│   ├── documents.html      Documents & Forms: five file tools
 │   ├── script.js           GovEase namespace: news API client + renderers
+│   ├── documents.js        GovEase.docs: document tool UI + homepage quick links
+│   ├── documents.css       Document tool styles (built on styles.css tokens)
 │   └── chatbot.js          Floating Groq chatbot UI
 ├── backend/
 │   ├── app.py              Flask app, CORS, static serving, background bootstrap
 │   ├── routes/news.py      Government Updates API
 │   ├── routes/chat.py      POST /api/chat
+│   ├── routes/documents.py Document tool API (/api/documents)
+│   ├── documents/processor.py  Image/PDF processing (in memory, no Flask)
+│   ├── documents/presets.py    Application presets  ← add form requirements here
 │   ├── models/news.py      Categories, hashing, serialization, government-host check
 │   └── database/db.py      SQLite schema and connections (govease.db is generated)
 ├── news/
@@ -72,7 +80,10 @@ F:\Major Project\
 │   ├── collector.py        Fetch → clean → categorise → dedup → store; freshness gate
 │   └── data/seed_news.json Cached snapshot of real records (offline fallback)
 ├── api/news_api.md         API contract for Members 1 and 3
-├── requirements.txt        Flask, flask-cors, requests, feedparser, python-dotenv
+├── api/documents_api.md    Document tool API contract
+├── tests/test_documents.py Document tool test cases (pytest)
+├── requirements.txt        Flask, flask-cors, requests, feedparser, python-dotenv,
+│                           Pillow, pypdf, pypdfium2
 └── GovEase_Member_2_News_Module.md   The specification
 ```
 
@@ -265,6 +276,47 @@ origin blocks the fallback `fetch()` on CORS.
 - Images are lazy-loaded with explicit dimensions so they cannot shift layout.
 - Filter state is mirrored into the URL, so filtered views are shareable and the
   back button works.
+
+---
+
+## Documents & Forms (Member 3)
+
+Open <http://localhost:5000/documents.html>, or use the quick links on the
+homepage module card.
+
+| Tool | What it does |
+|---|---|
+| Ready for application | Pick what the form asks for (recruitment photo 200×230 px 20–50 KB, signature 140×60 px 10–20 KB, thumb impression, passport photo 3.5×4.5 cm, scholarship photo, scanned certificate, PDF ≤ 200 KB / 1 MB). The file is cropped or padded, converted and compressed to fit, then checked for type, dimensions and size. The original is checked as well, so the citizen sees what was wrong. |
+| Resize | Pixels, cm or mm (converted with the DPI); crop to fill, fit with a white border, or stretch. The DPI is written into the file. |
+| Compress | Images: binary search for the highest JPEG/WEBP quality under the target KB; below quality 40 the image is shrunk instead. PDFs: embedded images and content streams are recompressed. |
+| Convert | JPG ↔ PNG ↔ WEBP; images → one PDF (A4 or original size); PDF → images (ZIP for several pages). |
+| Merge PDFs | Combine 2–20 PDFs in an order the citizen chooses. |
+
+Design rules:
+
+- **Nothing is stored.** Files are processed in memory and returned as a
+  download; nothing is written to disk.
+- **Type from content, not name.** A renamed `.exe` is rejected as `unsupported_type`.
+- **Limits:** 10 MB per file, 20 files, 50 MB per request; decompression-bomb guard.
+- **Privacy:** EXIF metadata (including phone GPS) is removed after the photo's
+  rotation is applied.
+- **Presets are indicative.** Every notification sets its own limits, so the
+  page tells citizens to confirm them. Add a preset in `backend/documents/presets.py`.
+- **Minimum size.** If a plain image (often a signature) is below a form's
+  minimum even at maximum quality, a blank JPEG comment segment is added. No
+  pixel changes, and the result shows a warning.
+
+Run the test cases:
+
+```bash
+pip install pytest
+```
+
+```bash
+python -m pytest tests -v
+```
+
+The API contract is in [`api/documents_api.md`](api/documents_api.md).
 
 ---
 

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documents &amp; Forms &mdash; GovEase</title>
+<meta name="description" content="Resize, compress and convert photographs, signatures and documents for online government applications.">
+<meta name="theme-color" content="#0a3055">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="documents.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="masthead">
+  <div class="gov-strip">
+    <div class="wrap">
+      <span class="strip-note">
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="8" cy="8" r="6.5"/><path d="M8 7.2v4M8 4.9v.9"/>
+        </svg>
+        An academic major project &mdash; not an official government website
+      </span>
+      <span class="strip-status" id="strip-status">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="status-text">Checking sources&hellip;</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="wrap masthead-top">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">GE</span>
+      <span class="brand-text">
+        <span class="brand-name">GovEase</span>
+        <span class="brand-tagline">Simplifying Government Services</span>
+      </span>
+    </a>
+
+    <div class="masthead-facts" aria-hidden="true">
+      <span class="fact"><span class="fact-num">05</span><span class="fact-key">Sources</span></span>
+      <span class="fact"><span class="fact-num">03</span><span class="fact-key">Modules</span></span>
+    </div>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mainnav">
+      <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M2 4h12M2 8h12M2 12h12"/>
+      </svg>
+      Menu
+    </button>
+  </div>
+
+  <nav class="mainnav" id="mainnav" aria-label="Main">
+    <div class="wrap">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#assistant-mount">AI Assistant</a></li>
+        <li><a href="news.html">Government Updates</a></li>
+        <li><a href="documents.html" aria-current="page">Documents &amp; Forms</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span class="crumb-sep" aria-hidden="true">&rsaquo;</span>
+      <span>Documents &amp; Forms</span>
+    </nav>
+
+    <section class="page-head">
+      <span class="eyebrow">Smart Document &amp; Form Tool</span>
+      <h1 class="page-title">Documents &amp; Forms</h1>
+      <p class="page-sub">
+        Get your photograph, signature and certificates ready for online
+        government applications &mdash; resize, compress, convert and merge
+        in one place.
+      </p>
+      <p class="docs-privacy">
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3.2" y="7" width="9.6" height="6.6" rx="1"/><path d="M5.4 7V5.2a2.6 2.6 0 0 1 5.2 0V7"/>
+        </svg>
+        Files are processed in memory and discarded as soon as the result is sent. Nothing is stored.
+      </p>
+    </section>
+
+    <div class="docs-layout">
+      <nav class="docs-tabs" role="tablist" aria-label="Document tools">
+        <button role="tab" id="tab-prepare" aria-controls="panel-prepare" aria-selected="true" data-tool="prepare">
+          <strong>Ready for application</strong><span>Photo, signature, PDF presets</span>
+        </button>
+        <button role="tab" id="tab-resize" aria-controls="panel-resize" aria-selected="false" data-tool="resize" tabindex="-1">
+          <strong>Resize image</strong><span>Pixels or centimetres</span>
+        </button>
+        <button role="tab" id="tab-compress" aria-controls="panel-compress" aria-selected="false" data-tool="compress" tabindex="-1">
+          <strong>Compress</strong><span>Image or PDF to a target KB</span>
+        </button>
+        <button role="tab" id="tab-convert" aria-controls="panel-convert" aria-selected="false" data-tool="convert" tabindex="-1">
+          <strong>Convert</strong><span>JPG · PNG · WEBP · PDF</span>
+        </button>
+        <button role="tab" id="tab-merge" aria-controls="panel-merge" aria-selected="false" data-tool="merge" tabindex="-1">
+          <strong>Merge PDFs</strong><span>Combine into one file</span>
+        </button>
+      </nav>
+
+      <div class="docs-panels">
+        <!-- 1. Ready for application -->
+        <section class="docs-panel" role="tabpanel" id="panel-prepare" aria-labelledby="tab-prepare" data-endpoint="/prepare">
+          <h2>Ready for application</h2>
+          <p class="docs-hint">Choose what the form asks for. GovEase resizes, compresses and converts your file to match, then checks it.</p>
+          <form class="docs-form" novalidate>
+            <label class="docs-field">
+              <span>Document type</span>
+              <select name="preset" id="preset-select" required>
+                <option value="">Loading presets…</option>
+              </select>
+            </label>
+            <p class="docs-preset-desc" id="preset-desc" aria-live="polite"></p>
+            <div class="docs-drop" data-accept="image/*,application/pdf">
+              <input type="file" name="file" accept="image/*,application/pdf" id="prepare-file">
+              <label for="prepare-file"><strong>Choose a file</strong> or drag it here<br><small>JPG, PNG, WEBP or PDF · up to 10 MB</small></label>
+            </div>
+            <div class="docs-file-info" aria-live="polite"></div>
+            <p class="docs-note">Limits differ between forms. Always confirm the size and format in the official notification.</p>
+            <button type="submit" class="btn docs-submit">Prepare file</button>
+          </form>
+          <div class="docs-result" aria-live="polite"></div>
+        </section>
+
+        <!-- 2. Resize -->
+        <section class="docs-panel" role="tabpanel" id="panel-resize" aria-labelledby="tab-resize" data-endpoint="/image/resize" hidden>
+          <h2>Resize image</h2>
+          <p class="docs-hint">Leave width or height empty to keep the original proportions.</p>
+          <form class="docs-form" novalidate>
+            <div class="docs-drop">
+              <input type="file" name="file" accept="image/*" id="resize-file">
+              <label for="resize-file"><strong>Choose an image</strong> or drag it here<br><small>JPG, PNG, WEBP · up to 10 MB</small></label>
+            </div>
+            <div class="docs-file-info" aria-live="polite"></div>
+            <div class="docs-grid">
+              <label class="docs-field"><span>Unit</span>
+                <select name="unit" data-unit>
+                  <option value="px">Pixels</option>
+                  <option value="cm">Centimetres</option>
+                  <option value="mm">Millimetres</option>
+                </select>
+              </label>
+              <label class="docs-field"><span>Width</span><input type="number" name="w" min="0.1" step="any" inputmode="decimal" placeholder="e.g. 200"></label>
+              <label class="docs-field"><span>Height</span><input type="number" name="h" min="0.1" step="any" inputmode="decimal" placeholder="e.g. 230"></label>
+              <label class="docs-field"><span>DPI</span><input type="number" name="dpi" min="72" max="1200" value="200"></label>
+              <label class="docs-field"><span>Fit</span>
+                <select name="mode">
+                  <option value="fill">Crop to fill (photos)</option>
+                  <option value="pad">Fit with white border (signatures)</option>
+                  <option value="stretch">Stretch exactly</option>
+                </select>
+              </label>
+              <label class="docs-field"><span>Save as</span>
+                <select name="format">
+                  <option value="">Same as original</option>
+                  <option value="jpg">JPG</option>
+                  <option value="png">PNG</option>
+                  <option value="webp">WEBP</option>
+                </select>
+              </label>
+            </div>
+            <p class="docs-note" data-cm-note hidden>Centimetres are converted to pixels using the DPI value (e.g. 3.5 cm at 300 DPI = 413 px).</p>
+            <button type="submit" class="btn docs-submit">Resize</button>
+          </form>
+          <div class="docs-result" aria-live="polite"></div>
+        </section>
+
+        <!-- 3. Compress -->
+        <section class="docs-panel" role="tabpanel" id="panel-compress" aria-labelledby="tab-compress" data-endpoint="auto-compress" hidden>
+          <h2>Compress to a target size</h2>
+          <p class="docs-hint">Works for images and PDFs. GovEase finds the best quality that fits under your limit.</p>
+          <form class="docs-form" novalidate>
+            <div class="docs-drop">
+              <input type="file" name="file" accept="image/*,application/pdf" id="compress-file">
+              <label for="compress-file"><strong>Choose an image or PDF</strong> or drag it here<br><small>up to 10 MB</small></label>
+            </div>
+            <div class="docs-file-info" aria-live="polite"></div>
+            <div class="docs-grid">
+              <label class="docs-field"><span>Maximum size (KB)</span><input type="number" name="max_kb" min="1" value="100" required></label>
+              <label class="docs-field" data-image-only><span>Minimum size (KB, optional)</span><input type="number" name="min_kb" min="0" placeholder="e.g. 20"></label>
+              <label class="docs-field" data-image-only><span>Save as</span>
+                <select name="format">
+                  <option value="">Same as original</option>
+                  <option value="jpg">JPG</option>
+                  <option value="webp">WEBP</option>
+                  <option value="png">PNG</option>
+                </select>
+              </label>
+            </div>
+            <div class="docs-chips filter-row" aria-label="Common limits">
+              <button type="button" class="chip" data-kb="20">20 KB</button>
+              <button type="button" class="chip" data-kb="50">50 KB</button>
+              <button type="button" class="chip" data-kb="100">100 KB</button>
+              <button type="button" class="chip" data-kb="200">200 KB</button>
+              <button type="button" class="chip" data-kb="500">500 KB</button>
+              <button type="button" class="chip" data-kb="1024">1 MB</button>
+            </div>
+            <button type="submit" class="btn docs-submit">Compress</button>
+          </form>
+          <div class="docs-result" aria-live="polite"></div>
+        </section>
+
+        <!-- 4. Convert -->
+        <section class="docs-panel" role="tabpanel" id="panel-convert" aria-labelledby="tab-convert" data-endpoint="auto-convert" hidden>
+          <h2>Convert</h2>
+          <form class="docs-form" novalidate>
+            <fieldset class="docs-radio-row">
+              <legend>Conversion</legend>
+              <label><input type="radio" name="conversion" value="image" checked> Image format</label>
+              <label><input type="radio" name="conversion" value="images-pdf"> Images → PDF</label>
+              <label><input type="radio" name="conversion" value="pdf-images"> PDF → images</label>
+            </fieldset>
+            <div class="docs-drop">
+              <input type="file" name="file" accept="image/*" id="convert-file">
+              <label for="convert-file"><strong>Choose file(s)</strong> or drag here<br><small data-convert-hint>One image · up to 10 MB</small></label>
+            </div>
+            <div class="docs-file-info" aria-live="polite"></div>
+            <div class="docs-grid">
+              <label class="docs-field" data-show="image pdf-images"><span>Output format</span>
+                <select name="format">
+                  <option value="jpg">JPG</option>
+                  <option value="png">PNG</option>
+                  <option value="webp" data-show="image">WEBP</option>
+                </select>
+              </label>
+              <label class="docs-field" data-show="images-pdf"><span>Page size</span>
+                <select name="page_size">
+                  <option value="a4">A4 (for printing/uploading)</option>
+                  <option value="auto">Same as image</option>
+                </select>
+              </label>
+              <label class="docs-field" data-show="pdf-images"><span>Resolution (DPI)</span>
+                <select name="dpi">
+                  <option value="100">100 (small)</option>
+                  <option value="150" selected>150 (standard)</option>
+                  <option value="200">200</option>
+                  <option value="300">300 (print)</option>
+                </select>
+              </label>
+            </div>
+            <p class="docs-note" data-show="images-pdf">Pages appear in the order you select the files. Multi-page PDFs download as a ZIP of images.</p>
+            <button type="submit" class="btn docs-submit">Convert</button>
+          </form>
+          <div class="docs-result" aria-live="polite"></div>
+        </section>
+
+        <!-- 5. Merge -->
+        <section class="docs-panel" role="tabpanel" id="panel-merge" aria-labelledby="tab-merge" data-endpoint="/pdf/merge" hidden>
+          <h2>Merge PDFs</h2>
+          <p class="docs-hint">Combine marksheets, certificates and ID proofs into the single PDF many forms ask for.</p>
+          <form class="docs-form" novalidate>
+            <div class="docs-drop">
+              <input type="file" name="files" accept="application/pdf" multiple id="merge-files">
+              <label for="merge-files"><strong>Choose PDF files</strong> or drag them here<br><small>2–20 files · up to 10 MB each</small></label>
+            </div>
+            <ol class="docs-order" aria-label="Merge order"></ol>
+            <button type="submit" class="btn docs-submit">Merge PDFs</button>
+          </form>
+          <div class="docs-result" aria-live="polite"></div>
+        </section>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h3>GovEase</h3>
+        <p>
+          One platform for understanding government information, staying
+          updated with announcements, and preparing files for online
+          applications.
+        </p>
+      </div>
+      <div>
+        <h3>Sections</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="news.html">Government Updates</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Categories</h3>
+        <ul>
+          <li><a href="news.html?category=Announcements">Announcements</a></li>
+          <li><a href="news.html?category=Policies">Policies</a></li>
+          <li><a href="news.html?category=Notifications">Notifications</a></li>
+          <li><a href="news.html?category=Citizen%20Services">Citizen Services</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Data Sources</h3>
+        <ul class="footer-sources">
+          <li>Reserve Bank of India</li>
+          <li>Securities and Exchange Board of India</li>
+          <li>Telecom Regulatory Authority of India</li>
+          <li>NITI Aayog</li>
+          <li>MyGov</li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <strong>Disclaimer.</strong> GovEase is an academic project and is not an
+      official government website. Updates are collected from public government
+      sources and may be incomplete or delayed. Always confirm information
+      against the original notification on the issuing department&rsquo;s own
+      website before acting on it.
+      <span class="copyright">&copy; <span id="year"></span> GovEase &mdash; student major project.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="documents.js"></script>
+<script src="chatbot.js"></script>
+</body>
+</html>
