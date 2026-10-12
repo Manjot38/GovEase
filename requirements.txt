@@ -6,3 +6,7 @@ flask-cors>=5.0
 requests>=2.32
 feedparser>=6.0
 python-dotenv>=1.0
+# Member 3 (Smart Document & Form Tool)
+Pillow>=10.0
+pypdf>=4.0
+pypdfium2>=4.0

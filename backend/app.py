@@ -7,7 +7,8 @@ Run:
 Serves the API under /api and the frontend/ directory as static files, so a
 single process runs the whole prototype.
 
-The chatbot and news modules are registered under /api. CORS is enabled for
+The chatbot and news modules are registered under /api, and the document
+tool under /api/documents. CORS is enabled for
 local development, so the frontend can also call this API from another port.
 """
 
@@ -20,6 +21,7 @@ from flask_cors import CORS
 
 from backend.database.db import init_db
 from backend.routes.chat import chat_bp
+from backend.routes.documents import MAX_REQUEST_MB, documents_bp
 from backend.routes.news import news_bp
 from news.collector import start_background_refresh
 
@@ -33,13 +35,16 @@ FRONTEND_DIR = os.path.join(
 
 def create_app():
     app = Flask(__name__, static_folder=None)
-    CORS(app)
+    CORS(app, expose_headers=["X-GovEase-Meta", "X-GovEase-Warnings", "Content-Disposition"])
+    # Uploads for the document tool; the blueprint rejects anything larger
+    # with a JSON error before the body is read.
+    app.config["MAX_CONTENT_LENGTH"] = (MAX_REQUEST_MB + 1) * 1024 * 1024
 
     init_db()
 
     app.register_blueprint(news_bp, url_prefix="/api")
     app.register_blueprint(chat_bp, url_prefix="/api")
-    # Member 3: register documents_bp here.
+    app.register_blueprint(documents_bp, url_prefix="/api/documents")
 
     @app.route("/")
     def index():
@@ -61,6 +66,13 @@ def create_app():
     @app.errorhandler(404)
     def not_found(error):
         return jsonify({"error": "not_found"}), 404
+
+    @app.errorhandler(413)
+    def too_large(error):
+        return jsonify({
+            "error": "request_too_large",
+            "message": "Upload at most %d MB at once." % MAX_REQUEST_MB,
+        }), 413
 
     return app
 

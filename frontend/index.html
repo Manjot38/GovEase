@@ -7,6 +7,7 @@
 <meta name="description" content="GovEase brings government announcements, schemes and notifications together in one place, always linking back to the official source.">
 <meta name="theme-color" content="#0a3055">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="documents.css">
 </head>
 <body>
 
@@ -59,7 +60,7 @@
         <li><a href="index.html" aria-current="page">Home</a></li>
         <li><a href="index.html#assistant-mount">AI Assistant</a></li>
         <li><a href="news.html">Government Updates</a></li>
-        <li><a href="index.html#documents-mount">Documents &amp; Forms</a></li>
+        <li><a href="documents.html">Documents &amp; Forms</a></li>
       </ul>
     </div>
   </nav>
@@ -189,16 +190,8 @@
           </div>
         </section>
 
-        <!-- ==============================================================
-             MEMBER 3 MOUNT POINT - Smart Document / Form Tool
-             Owner: Member 3. Not implemented in this module.
-             To wire it up:
-               1. Define GovEase.docs = { init: function () { ... } }
-                  in your own script file, included after script.js.
-               2. Render your interface inside #documents-panel below.
-               3. Call your own backend at /api/documents/... - register
-                  documents_bp in backend/app.py.
-             ============================================================== -->
+        <!-- Member 3 - Smart Document / Form Tool. documents.js fills
+             #documents-panel with quick links into documents.html. -->
         <section class="module-card" id="documents-mount">
           <div class="module-head">
             <span class="module-icon" aria-hidden="true">
@@ -215,8 +208,8 @@
           </p>
           <div id="documents-panel"></div>
           <div class="module-foot">
-            <span class="status-chip status-planned">Planned</span>
-            <span class="module-owner">Member 3 &middot; integration point reserved</span>
+            <span class="status-chip status-live">Available</span>
+            <a class="btn btn-secondary btn-sm" href="documents.html">Open module</a>
           </div>
         </section>
       </div>
@@ -272,6 +265,7 @@
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="news.html">Government Updates</a></li>
+          <li><a href="documents.html">Documents &amp; Forms</a></li>
           <li><a href="index.html#about">About</a></li>
         </ul>
       </div>
@@ -307,6 +301,7 @@
 </footer>
 
 <script src="script.js"></script>
+<script src="documents.js"></script>
 <script src="chatbot.js"></script>
 </body>
 </html>

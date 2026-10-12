@@ -8,7 +8,7 @@
      GovEase.api        the ONLY place fetch() is called   (Member 2)
      GovEase.news       Government Updates rendering       (Member 2)
      GovEase.assistant  reserved for future assistant integrations
-     GovEase.docs       RESERVED for Member 3 (document/form tool)
+     GovEase.docs       document/form tool, in documents.js     (Member 3)
 
    Rules this file follows, from spec section 25:
      - No polling. Data is fetched on page load and on user action only.
@@ -387,9 +387,9 @@ window.GovEase = window.GovEase || {};
     if (year) year.textContent = new Date().getFullYear();
   });
 
-  /* --- Member 3 reserved slot --------------------------------------------
-     Leave GovEase.docs free for the document/form module. The independent
-     chatbot client lives in chatbot.js, so it can fail without affecting
+  /* --- Other modules ----------------------------------------------------
+     GovEase.docs (the document/form tool) lives in documents.js and the
+     chatbot client in chatbot.js, so either can fail without affecting
      this news module.
      ---------------------------------------------------------------------- */
 
