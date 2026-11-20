@@ -88,6 +88,16 @@
       if (event.key === 'Escape' && !panel.hidden) setOpen(false);
     });
 
+    // The "AI Assistant" nav link (index.html#assistant-mount) and the module
+    // card button both open the floating assistant.
+    document.addEventListener('click', function (event) {
+      var trigger = event.target.closest('[data-open-assistant], a[href$="#assistant-mount"]');
+      if (!trigger) return;
+      if (trigger.tagName === 'A' && !document.getElementById('assistant-mount')) return;
+      if (panel.hidden) setOpen(true);
+    });
+    if (window.location.hash === '#assistant-mount') setOpen(true);
+
     form.addEventListener('submit', function (event) {
       event.preventDefault();
       var message = input.value.trim();
@@ -111,7 +121,7 @@
           ? '/api'
           : 'http://localhost:5000/api');
 
-      fetch(apiBase + '/chat', {
+      fetch(apiBase + '/assistant/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: message })

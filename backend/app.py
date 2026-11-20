@@ -7,9 +7,14 @@ Run:
 Serves the API under /api and the frontend/ directory as static files, so a
 single process runs the whole prototype.
 
-The chatbot and news modules are registered under /api, and the document
-tool under /api/documents. CORS is enabled for
-local development, so the frontend can also call this API from another port.
+Government Updates is served under /api (/api/news, /api/meta, ...), the AI
+Assistant under /api/assistant (/api/assistant/chat) and the document tool
+under /api/documents. CORS is enabled for local development, so the frontend
+can also call this API from another port.
+
+The assistant needs GROQ_API_KEY, read from the project-root .env file
+(copy .env.example to .env). Without it the news module still works and the
+assistant replies with a "not configured" message.
 """
 
 import os
@@ -43,7 +48,7 @@ def create_app():
     init_db()
 
     app.register_blueprint(news_bp, url_prefix="/api")
-    app.register_blueprint(chat_bp, url_prefix="/api")
+    app.register_blueprint(chat_bp, url_prefix="/api/assistant")
     app.register_blueprint(documents_bp, url_prefix="/api/documents")
 
     @app.route("/")

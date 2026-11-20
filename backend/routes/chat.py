@@ -1,15 +1,24 @@
-"""Groq-powered chatbot endpoint."""
+"""GovEase AI Assistant (Member 1) - Groq-powered chatbot endpoints.
+
+Registered in backend/app.py under /api/assistant:
+    GET  /api/assistant/health  -> is the assistant configured?
+    POST /api/assistant/chat    -> {"message": "..."} -> {"response": "..."}
+"""
 
 import os
 
 import requests
 from flask import Blueprint, current_app, jsonify, request
 
-chat_bp = Blueprint("chat", __name__)
+chat_bp = Blueprint("assistant", __name__)
 
 GROQ_CHAT_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "openai/gpt-oss-20b"
 MAX_MESSAGE_LENGTH = 4000
+# gpt-oss is a reasoning model: its hidden reasoning tokens share this budget
+# with the visible answer, so keep reasoning effort low and leave enough room
+# for a full answer (Hindi/Punjabi use more tokens than English).
+MAX_COMPLETION_TOKENS = 1500
 
 SYSTEM_PROMPT = (
     "You are GovEase Assistant, an AI assistant for the GovEase application. "
@@ -18,8 +27,20 @@ SYSTEM_PROMPT = (
     "practical answers. Do not invent official eligibility requirements or "
     "government facts. If you are uncertain, clearly say so. You do not have "
     "access to live government records or the GovEase news database; advise "
-    "users to confirm important details with the relevant official source."
+    "users to confirm important details with the relevant official source. "
+    "Reply in the same language the user writes in (English, Hindi or "
+    "Punjabi). Write plain text without Markdown tables or headings."
 )
+
+
+def _api_key():
+    return os.environ.get("GROQ_API_KEY") or os.environ.get("GROK_API_KEY")
+
+
+@chat_bp.route("/health", methods=["GET"])
+def health():
+    """Report whether the assistant has an API key, without revealing it."""
+    return jsonify({"status": "ok", "configured": bool(_api_key()), "model": GROQ_MODEL})
 
 
 @chat_bp.route("/chat", methods=["POST"])
@@ -46,7 +67,7 @@ def chat():
             "message": "Keep your question under 4000 characters.",
         }), 400
 
-    api_key = os.environ.get("GROQ_API_KEY") or os.environ.get("GROK_API_KEY")
+    api_key = _api_key()
     if not api_key:
         return jsonify({
             "error": "chat_unavailable",
@@ -64,9 +85,11 @@ def chat():
                     {"role": "user", "content": message},
                 ],
                 "temperature": 0.4,
-                "max_tokens": 700,
+                "max_completion_tokens": MAX_COMPLETION_TOKENS,
+                "reasoning_effort": "low",
+                "include_reasoning": False,
             },
-            timeout=(5, 30),
+            timeout=(5, 45),
         )
         response.raise_for_status()
         data = response.json()
@@ -78,7 +101,8 @@ def chat():
         }), 504
     except requests.HTTPError as error:
         status_code = error.response.status_code if error.response is not None else None
-        current_app.logger.warning("Groq chatbot returned HTTP %s", status_code)
+        detail = error.response.text[:300] if error.response is not None else ""
+        current_app.logger.warning("Groq chatbot returned HTTP %s: %s", status_code, detail)
         if status_code == 429:
             return jsonify({
                 "error": "chat_busy",

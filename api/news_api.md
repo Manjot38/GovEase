@@ -233,7 +233,7 @@ app.register_blueprint(documents_bp, url_prefix="/api")
 ```
 
 3. Keep document endpoints under `/api/documents/...` so modules never
-   collide. The chatbot is already available at `POST /api/chat`.
+   collide. The AI Assistant is already available at `POST /api/assistant/chat`.
 
 On the frontend, `window.GovEase` reserves `GovEase.docs` for the document
 module, and `index.html` has the `#documents-mount` integration point. Keep

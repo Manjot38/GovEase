@@ -22,9 +22,8 @@ backend/database/govease.db
 *.sqlite3
 
 # --- Environment / secrets ------------------------------------------------
-# The project uses no secrets today (every os.environ value is a numeric
-# tuning knob or a port). Listed so a future key can never be committed
-# by accident. An .env.example, if one is ever added, stays tracked.
+# GROQ_API_KEY (AI Assistant) lives only in .env. Copy .env.example to .env;
+# never commit the real key. .env.example (placeholder only) stays tracked.
 .env
 .env.*
 !.env.example

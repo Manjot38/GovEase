@@ -39,16 +39,28 @@ The first command loads the bundled cached snapshot so the app has content even
 with no network, the second collects live updates from the official feeds, and
 the third serves both the API and the frontend from one process.
 
-The Groq API key is read by the backend from the project-root `.env` file.
-Copy the supplied `api/grok_api.env` to `.env` before starting the app. The
-backend accepts its existing `GROK_API_KEY` variable name and the standard
-`GROQ_API_KEY` name (recommended for new setups). Both files are excluded from
-Git.
+### AI Assistant setup (Groq API key)
 
-The floating GovEase Assistant sends questions to `POST /api/chat`; the Flask
-backend calls Groq using the `openai/gpt-oss-20b` model. The assistant does not
-query the live news database, so verify important government details with the
-relevant official source.
+The AI Assistant needs a free Groq API key (<https://console.groq.com/keys>).
+The backend reads it from a project-root `.env` file, which is gitignored and
+must never be committed:
+
+```bash
+copy .env.example .env
+```
+
+Then edit `.env` and set `GROQ_API_KEY=...` (the older `GROK_API_KEY` name is
+also accepted). Restart the app after changing it. Without a key, Government
+Updates works normally and the assistant replies "The chatbot is not
+configured".
+
+The floating GovEase Assistant (the "Ask GovEase" button, the "AI Assistant"
+nav link, or "Open assistant" on the home page) sends questions to
+`POST /api/assistant/chat`; the Flask backend calls Groq with the
+`openai/gpt-oss-20b` model and answers in English, Hindi or Punjabi to match
+the question. `GET /api/assistant/health` reports whether a key is configured.
+The assistant does not query the live news database, so verify important
+government details with the relevant official source.
 
 ---
 
@@ -69,7 +81,7 @@ F:\Major Project\
 ├── backend/
 │   ├── app.py              Flask app, CORS, static serving, background bootstrap
 │   ├── routes/news.py      Government Updates API
-│   ├── routes/chat.py      POST /api/chat
+│   ├── routes/chat.py      AI Assistant: POST /api/assistant/chat, GET /api/assistant/health
 │   ├── routes/documents.py Document tool API (/api/documents)
 │   ├── documents/processor.py  Image/PDF processing (in memory, no Flask)
 │   ├── documents/presets.py    Application presets  ← add form requirements here
