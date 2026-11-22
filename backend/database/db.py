@@ -12,10 +12,16 @@ which is what keeps the check global and O(1) as required by spec section 25.
 import os
 import sqlite3
 
-DB_PATH = os.environ.get(
-    "GOVEASE_DB",
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), "govease.db"),
-)
+if os.environ.get("VERCEL"):
+    DB_PATH = "/tmp/govease.db"
+else:
+    DB_PATH = os.environ.get(
+        "GOVEASE_DB",
+        os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "govease.db"
+        ),
+    )
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS news (
@@ -64,16 +70,16 @@ CREATE TABLE IF NOT EXISTS sources (
 );
 """
 
-
 def get_conn():
-    """Connection with dict-style rows and sane concurrency settings."""
+    """Connection with dict-style rows and concurrency settings."""
+    os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     conn = sqlite3.connect(DB_PATH, timeout=10)
     conn.row_factory = sqlite3.Row
-    # WAL lets the background refresh thread write while requests read.
-    conn.execute("PRAGMA journal_mode=WAL")
     conn.execute("PRAGMA busy_timeout=5000")
+    # WAL is disabled on Vercel's temporary serverless database.
+    if not os.environ.get("VERCEL"):
+        conn.execute("PRAGMA journal_mode=WAL")
     return conn
-
 
 def init_db():
     """Create tables if absent and guarantee the single meta row. Idempotent."""
