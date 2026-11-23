@@ -10,7 +10,7 @@ not need to modify anything in here.
 """
 
 import time
-
+import os
 from flask import Blueprint, jsonify, request
 
 from backend.database.db import get_conn, get_meta
@@ -110,11 +110,18 @@ def _parse_int(raw, default, minimum, maximum):
         return default
     return max(minimum, min(maximum, value))
 
+def _refresh_for_request(force=False):
+    # Vercel: complete refresh before returning the API response.
+    # Local VS Code: preserve existing background refresh behaviour.
+    if os.environ.get("VERCEL"):
+        return refresh_if_stale(force=force, wait=True)
+
+    return refresh_if_stale(force=force)
 
 @news_bp.route("/news", methods=["GET"])
 def list_news():
     # Non-blocking: returns "fresh", "already refreshing" or "refresh started".
-    refresh_state = refresh_if_stale()
+    refresh_state = _refresh_for_request()
 
     where, params = _build_query(request.args)
     limit = _parse_int(request.args.get("limit"), DEFAULT_LIMIT, 1, MAX_LIMIT)
@@ -226,7 +233,7 @@ def manual_refresh():
             "retry_after_seconds": int(MANUAL_REFRESH_MIN_SECONDS - elapsed),
         }), 429
     _last_manual_refresh = time.monotonic()
-    return jsonify({"status": refresh_if_stale(force=True)})
+    return jsonify({"status": _refresh_for_request(force=True)})
 
 
 @news_bp.route("/health", methods=["GET"])

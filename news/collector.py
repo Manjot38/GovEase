@@ -73,6 +73,18 @@ _background_thread = None
 def log(message):
     print("[collector] " + str(message), flush=True)
 
+def ensure_seed_loaded():
+    """Load the bundled news snapshot when the database is empty."""
+    init_db()
+
+    with get_conn() as conn:
+        count = conn.execute(
+            "SELECT COUNT(*) AS n FROM news"
+        ).fetchone()["n"]
+
+    if count == 0 and os.path.exists(SEED_PATH):
+        print("Database is empty. Loading seed news...")
+        load_seed()
 
 # --- Text cleaning ----------------------------------------------------------
 
@@ -388,21 +400,45 @@ def _threaded_cycle():
         _refresh_lock.release()
 
 
-def refresh_if_stale(force=False):
-    """Non-blocking. Returns what it decided, never the cycle's results.
-
-    This is the only function the request path calls. It must stay cheap.
+def refresh_if_stale(force=False, wait=False):
     """
+    Refresh RSS feeds if the stored data is stale.
+
+    wait=False: Existing asynchronous behaviour for local development.
+    wait=True: Synchronous behaviour for Vercel.
+    """
+
+    # Ensure that the database has initial news data.
+    ensure_seed_loaded()
+
     if not get_sources():
         return "no sources configured"
+
     if not force and not is_stale():
         return "fresh"
+
     if not _refresh_lock.acquire(blocking=False):
         return "already refreshing"
+
+    # Vercel: finish the refresh before the request returns.
+    if wait:
+        try:
+            run_cycle()
+            return "refresh completed"
+        except Exception as exc:
+            print("RSS refresh failed:", exc)
+            return "refresh failed"
+        finally:
+            _refresh_lock.release()
+
+    # Local VS Code: preserve background refresh.
     thread = threading.Thread(
-        target=_threaded_cycle, daemon=True, name="govease-refresh"
+        target=_threaded_cycle,
+        daemon=True,
+        name="govease-refresh"
     )
     thread.start()
+
     return "refresh started"
 
 
